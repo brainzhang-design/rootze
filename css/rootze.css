@@ -165,3 +165,47 @@
 .btn-glow:hover {
   box-shadow: 0 6px 20px rgba(0, 229, 255, 0.6);
 }
+
+/* Track counter dark section & high-contrast text */
+#track.ftco-counter {
+  background-color: var(--rootze-dark) !important;
+  color: #ffffff !important;
+  position: relative;
+}
+#track.ftco-counter .heading-section h2 {
+  color: #ffffff !important;
+  font-weight: 700;
+}
+#track.ftco-counter .heading-section p {
+  color: #e2e8f0 !important;
+  font-size: 1.1rem;
+}
+#track.ftco-counter .block-18 {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+#track.ftco-counter .block-18:hover {
+  transform: translateY(-4px);
+  border-color: var(--rootze-primary) !important;
+}
+#track.ftco-counter .number {
+  color: #ffffff !important;
+  font-size: 44px !important;
+  font-weight: 800 !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+#track.ftco-counter strong.text-white {
+  color: var(--rootze-accent) !important;
+}
+#track.ftco-counter .text span {
+  display: block;
+  font-size: 15px !important;
+  color: #cbd5e1 !important;
+  margin-top: 6px;
+  padding-left: 0 !important;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}

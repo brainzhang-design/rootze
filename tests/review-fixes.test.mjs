@@ -9,12 +9,14 @@ const root = process.cwd();
 test('Finding 1 & 2: Element visibility guaranteed and no duplicate ID on track section', () => {
   const rootzeCss = fs.readFileSync(path.join(root, 'css/rootze.css'), 'utf8');
   assert.match(rootzeCss, /\.ftco-animate\s*\{[^}]*opacity:\s*1/s, '.ftco-animate must have opacity: 1 override in rootze.css to prevent invisible content');
+  assert.match(rootzeCss, /#track\.ftco-counter\s*\{[^}]*background-color:\s*var\(--rootze-dark\)/s, '#track must have dark background override');
 
   const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
   // Check no element has duplicate id attribute
   const doubleIdMatches = html.match(/id="[^"]+"\s+[^>]*id="[^"]+"/g);
   assert.equal(doubleIdMatches, null, 'HTML elements must not contain multiple id attributes');
   assert.ok(!html.includes('id="section-counter"'), 'id="section-counter" duplicate must be removed');
+  assert.ok(!html.includes('id="track" class="ftco-counter ftco-section img bg-light"'), '#track must not have bg-light class');
 });
 
 test('Finding 3 & 4: Inquiry success modal exists and placeholders/subheadings are translated', () => {
