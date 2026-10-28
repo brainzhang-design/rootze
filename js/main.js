@@ -210,25 +210,22 @@
       $('#specModal').modal('show');
     });
 
-    // 8. B2B Inquiry Form Submission
+    // 8. B2B Inquiry Form Submission (Web3Forms AJAX with graceful fallback)
     $('#inquiryForm').on('submit', function(e) {
       e.preventDefault();
+      var form = this;
       var name = $('#inqName').val().trim();
       var company = $('#inqCompany').val().trim();
       var contact = $('#inqContact').val().trim();
       var category = $('#inqCategory').val();
       var quantity = $('#inqQuantity').val().trim() || 'N/A';
       var message = $('#inqMessage').val().trim() || 'No additional notes provided.';
+      var accessKey = $('#web3formsAccessKey').val().trim();
 
       var currentLang = (window.RootZeI18n && window.RootZeI18n.getLanguage()) || 'en';
       var payload = buildInquiryPayload(name, company, contact, category, quantity, message, currentLang);
 
-      // Populate Success Action Modal
-      $('#modalInquirySummary').text(payload.body);
-      $('#modalMailtoLink').attr('href', payload.mailtoUrl);
-      $('#modalWhatsappLink').attr('href', payload.waUrl);
-
-      // Clipboard copy handler
+      // Setup clipboard copy handler on the modal
       $('#modalCopyBtn').off('click').on('click', function() {
         if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(payload.body).then(function() {
@@ -242,14 +239,73 @@
         }
       });
 
-      // Show Action Modal
-      $('#inquirySuccessModal').modal('show');
+      function showFallbackModal() {
+        $('#inquirySuccessModalLabel').text((window.RootZeI18n && window.RootZeI18n.t('contact.success_title')) || 'Inquiry Prepared Successfully!');
+        $('#inquirySuccessModal .modal-body > p').text((window.RootZeI18n && window.RootZeI18n.t('contact.success_desc')) || 'Your inquiry details have been formatted. Click below to launch your email client or chat directly on WhatsApp.');
+        $('#modalInquirySummary').text(payload.body);
+        $('#modalMailtoLink').attr('href', payload.mailtoUrl);
+        $('#modalWhatsappLink').attr('href', payload.waUrl);
+        $('#inquirySuccessModal').modal('show');
+        try {
+          window.location.href = payload.mailtoUrl;
+        } catch (err) {}
+      }
 
-      // Attempt launching email client directly
-      try {
-        window.location.href = payload.mailtoUrl;
-      } catch (err) {
-        // Handled by modal links
+      // Check if Web3Forms access key is configured
+      if (accessKey && accessKey !== 'YOUR_WEB3FORMS_ACCESS_KEY') {
+        var submitBtn = $('#inqSubmitBtn');
+        var submitBtnText = $('#inqSubmitBtnText');
+        var sendingText = (window.RootZeI18n && window.RootZeI18n.t('contact.btn_sending')) || 'Sending...';
+
+        submitBtn.prop('disabled', true);
+        submitBtnText.text(sendingText);
+
+        var formData = {
+          access_key: accessKey,
+          from_name: 'RootZe Inquiry Desk',
+          subject: payload.subject,
+          name: name,
+          company: company,
+          contact: contact,
+          category: category,
+          quantity: quantity,
+          message: message
+        };
+
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        })
+        .then(function(response) { return response.json(); })
+        .then(function(data) {
+          if (data && data.success) {
+            // Success: Direct email delivery confirmed
+            $('#inquirySuccessModalLabel').text((window.RootZeI18n && window.RootZeI18n.t('contact.sent_direct_title')) || 'Inquiry Delivered to Our Inbox!');
+            $('#inquirySuccessModal .modal-body > p').text((window.RootZeI18n && window.RootZeI18n.t('contact.sent_direct_desc')) || 'Your inquiry has been delivered directly to our team inbox.');
+            $('#modalInquirySummary').text(payload.body);
+            $('#modalMailtoLink').attr('href', payload.mailtoUrl);
+            $('#modalWhatsappLink').attr('href', payload.waUrl);
+            $('#inquirySuccessModal').modal('show');
+            form.reset();
+          } else {
+            showFallbackModal();
+          }
+        })
+        .catch(function() {
+          showFallbackModal();
+        })
+        .finally(function() {
+          submitBtn.prop('disabled', false);
+          var defaultBtnText = (window.RootZeI18n && window.RootZeI18n.t('contact.send')) || 'Submit B2B Inquiry';
+          submitBtnText.text(defaultBtnText);
+        });
+      } else {
+        // Fallback for immediate operation prior to user setting their access key
+        showFallbackModal();
       }
     });
   });

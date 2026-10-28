@@ -23,6 +23,21 @@ Designed for high-conversion B2B export and wholesale inquiries, with instant ze
 
 ---
 
+## ✉️ Direct Email Inquiry Setup (Web3Forms)
+
+The landing page inquiry form uses [Web3Forms](https://web3forms.com/) to deliver inquiries directly to your team lead's mailbox without any backend:
+
+1. Visit **[web3forms.com](https://web3forms.com/)**, enter your team email, and click **Create Access Key** (free, no password required).
+2. Check your inbox and copy your generated **Access Key**.
+3. In `index.html`, replace `YOUR_WEB3FORMS_ACCESS_KEY` in the contact form:
+   ```html
+   <input type="hidden" name="access_key" id="web3formsAccessKey" value="YOUR_ACTUAL_ACCESS_KEY">
+   ```
+4. Any B2B inquiry submitted by a visitor will arrive directly in your inbox with all customer details!
+*(Note: If the access key is left as default, the form automatically falls back to mailto and WhatsApp direct chat, ensuring zero leads are ever dropped).*
+
+---
+
 ## 🚀 Live Deployment to GitHub Pages
 
 Deploying this website takes less than 1 minute:

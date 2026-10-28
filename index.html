@@ -366,24 +366,30 @@
         <div class="row block-9 justify-content-center mb-5">
           <div class="col-md-7 mb-4">
             <form id="inquiryForm" class="bg-light p-4 p-md-5 contact-form rounded shadow-sm">
+              <!-- Web3Forms configuration -->
+              <input type="hidden" name="access_key" id="web3formsAccessKey" value="YOUR_WEB3FORMS_ACCESS_KEY">
+              <input type="hidden" name="from_name" value="RootZe Official Inquiry">
+              <input type="hidden" name="subject" id="web3formsSubject" value="New B2B Inquiry from RootZe Landing Page">
+              <input type="checkbox" name="botcheck" class="d-none" style="display: none;">
+
               <div class="row">
                 <div class="col-md-6 form-group">
                   <label class="font-weight-bold" data-i18n="contact.form_name">Full Name</label>
-                  <input type="text" id="inqName" class="form-control" required placeholder="John Doe" data-i18n-placeholder="contact.ph_name">
+                  <input type="text" id="inqName" name="name" class="form-control" required placeholder="John Doe" data-i18n-placeholder="contact.ph_name">
                 </div>
                 <div class="col-md-6 form-group">
                   <label class="font-weight-bold" data-i18n="contact.form_company">Company Name</label>
-                  <input type="text" id="inqCompany" class="form-control" required placeholder="Global Energy Corp" data-i18n-placeholder="contact.ph_company">
+                  <input type="text" id="inqCompany" name="company" class="form-control" required placeholder="Global Energy Corp" data-i18n-placeholder="contact.ph_company">
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6 form-group">
                   <label class="font-weight-bold" data-i18n="contact.form_email">Business Email / WhatsApp</label>
-                  <input type="text" id="inqContact" class="form-control" required placeholder="john@company.com / +1 234 567 890" data-i18n-placeholder="contact.ph_email">
+                  <input type="text" id="inqContact" name="contact" class="form-control" required placeholder="john@company.com / +1 234 567 890" data-i18n-placeholder="contact.ph_email">
                 </div>
                 <div class="col-md-6 form-group">
                   <label class="font-weight-bold" data-i18n="contact.form_category">Interested Category</label>
-                  <select id="inqCategory" class="form-control">
+                  <select id="inqCategory" name="category" class="form-control">
                     <option value="Power Battery Cells & Modules" data-i18n="contact.cat_opt1">Power Battery Cells & Modules</option>
                     <option value="Commercial & Industrial ESS" data-i18n="contact.cat_opt2">Commercial & Industrial ESS</option>
                     <option value="Residential ESS Systems" data-i18n="contact.cat_opt3">Residential ESS Systems</option>
@@ -394,14 +400,16 @@
               </div>
               <div class="form-group">
                 <label class="font-weight-bold" data-i18n="contact.form_quantity">Estimated Quantity / Delivery Country</label>
-                <input type="text" id="inqQuantity" class="form-control" placeholder="e.g. 500 kWh or 20 EV units to Germany" data-i18n-placeholder="contact.ph_quantity">
+                <input type="text" id="inqQuantity" name="quantity" class="form-control" placeholder="e.g. 500 kWh or 20 EV units to Germany" data-i18n-placeholder="contact.ph_quantity">
               </div>
               <div class="form-group">
                 <label class="font-weight-bold" data-i18n="contact.form_message">Message / Requirements</label>
-                <textarea id="inqMessage" cols="30" rows="4" class="form-control" placeholder="Please describe target models, delivery dates, or custom specs..." data-i18n-placeholder="contact.ph_message"></textarea>
+                <textarea id="inqMessage" name="message" cols="30" rows="4" class="form-control" placeholder="Please describe target models, delivery dates, or custom specs..." data-i18n-placeholder="contact.ph_message"></textarea>
               </div>
               <div class="form-group mb-0">
-                <button type="submit" class="btn btn-primary py-3 px-5 btn-block btn-glow" data-i18n="contact.send">Submit B2B Inquiry</button>
+                <button type="submit" id="inqSubmitBtn" class="btn btn-primary py-3 px-5 btn-block btn-glow">
+                  <span id="inqSubmitBtnText" data-i18n="contact.send">Submit B2B Inquiry</span>
+                </button>
               </div>
             </form>
           </div>
