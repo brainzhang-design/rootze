@@ -44,7 +44,14 @@ Deploying this website takes less than 1 minute:
 
 ## 💻 Local Development & Preview
 
-You can preview the website locally using any static web server:
+You can preview the website locally with a single command (auto-opens your default browser):
+
+### One-Click Preview Script (Recommended)
+```bash
+./preview.sh
+```
+
+Or manually using any static web server:
 
 ### Option A: Python 3
 ```bash
