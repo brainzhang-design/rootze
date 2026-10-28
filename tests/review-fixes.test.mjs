@@ -10,6 +10,7 @@ test('Finding 1 & 2: Element visibility guaranteed and no duplicate ID on track 
   const rootzeCss = fs.readFileSync(path.join(root, 'css/rootze.css'), 'utf8');
   assert.match(rootzeCss, /\.ftco-animate\s*\{[^}]*opacity:\s*1/s, '.ftco-animate must have opacity: 1 override in rootze.css to prevent invisible content');
   assert.match(rootzeCss, /#track\.ftco-counter\s*\{[^}]*background-color:\s*var\(--rootze-dark\)/s, '#track must have dark background override');
+  assert.match(rootzeCss, /\.nav-link\s*\{[^}]*white-space:\s*nowrap/s, 'Navbar links must enforce white-space: nowrap to avoid vertical word wrapping');
 
   const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
   // Check no element has duplicate id attribute
@@ -17,6 +18,7 @@ test('Finding 1 & 2: Element visibility guaranteed and no duplicate ID on track 
   assert.equal(doubleIdMatches, null, 'HTML elements must not contain multiple id attributes');
   assert.ok(!html.includes('id="section-counter"'), 'id="section-counter" duplicate must be removed');
   assert.ok(!html.includes('id="track" class="ftco-counter ftco-section img bg-light"'), '#track must not have bg-light class');
+  assert.match(html, /<nav[^>]*id="ftco-navbar"[^>]*>[\s\S]*?<div class="container-fluid/, 'Navbar should use container-fluid to give desktop items full horizontal space');
 });
 
 test('Finding 3 & 4: Inquiry success modal exists and placeholders/subheadings are translated', () => {
