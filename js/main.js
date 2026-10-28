@@ -195,7 +195,7 @@
       $('#specModalBody').html(tableHtml);
 
       // Pre-select category in contact form when inquiring from modal
-      $('#specModalInquireBtn').off('click').on('click', function() {
+      $('#specModalInquireBtn').on('click.specSelect', function() {
         $('#specModal').modal('hide');
         var catSelect = $('#inqCategory');
         if (specId === 'cell-lfp') {
@@ -221,39 +221,95 @@
       var message = $('#inqMessage').val().trim() || 'No additional notes provided.';
 
       var currentLang = (window.RootZeI18n && window.RootZeI18n.getLanguage()) || 'en';
+      var payload = buildInquiryPayload(name, company, contact, category, quantity, message, currentLang);
 
-      var subject = encodeURIComponent('[RootZe Distribution Inquiry] ' + category + ' — ' + company);
-      var body = 'Dear RootZe Distribution Team,\n\n' +
+      // Populate Success Action Modal
+      $('#modalInquirySummary').text(payload.body);
+      $('#modalMailtoLink').attr('href', payload.mailtoUrl);
+      $('#modalWhatsappLink').attr('href', payload.waUrl);
+
+      // Clipboard copy handler
+      $('#modalCopyBtn').off('click').on('click', function() {
+        if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(payload.body).then(function() {
+            var copiedText = (window.RootZeI18n && window.RootZeI18n.t('contact.modal_copied')) || 'Copied!';
+            $('#modalCopyBtnText').text(copiedText);
+            setTimeout(function() {
+              var defaultText = (window.RootZeI18n && window.RootZeI18n.t('contact.modal_btn_copy')) || 'Copy Inquiry Text';
+              $('#modalCopyBtnText').text(defaultText);
+            }, 2500);
+          });
+        }
+      });
+
+      // Show Action Modal
+      $('#inquirySuccessModal').modal('show');
+
+      // Attempt launching email client directly
+      try {
+        window.location.href = payload.mailtoUrl;
+      } catch (err) {
+        // Handled by modal links
+      }
+    });
+  });
+
+  // Localized inquiry payload builder
+  function buildInquiryPayload(name, company, contact, category, quantity, message, lang) {
+    lang = lang || 'en';
+    var isZh = (lang === 'zh');
+
+    var subject = isZh
+      ? '[RootZe 新能源分销采购询盘] ' + category + ' — ' + company
+      : '[RootZe Distribution Inquiry] ' + category + ' — ' + company;
+
+    var body = isZh
+      ? '尊敬的 RootZe 业务团队：\n\n' +
+        '我方希望就以下产品采购获取一手分销报价、规格书与交付周期：\n\n' +
+        '--------------------------------------------------\n' +
+        '* 采购意向品类：' + category + '\n' +
+        '* 联络人姓名：' + name + '\n' +
+        '* 企业名称：' + company + '\n' +
+        '* 联络方式（邮箱/微信/WhatsApp）：' + contact + '\n' +
+        '* 预估采购量 / 目标交付国：' + quantity + '\n' +
+        '* 详细采购需求或定制规格：' + message + '\n' +
+        '--------------------------------------------------\n\n' +
+        '期待您的快速回复与支持。\n\n' +
+        '顺祝商祺，\n' + name
+      : 'Dear RootZe Distribution Team,\n\n' +
         'I would like to request an official wholesale quotation with following specifications:\n\n' +
         '--------------------------------------------------\n' +
+        '* Interested Product Category: ' + category + '\n' +
         '* Full Name: ' + name + '\n' +
         '* Company Name: ' + company + '\n' +
         '* Contact Details (Email/WhatsApp): ' + contact + '\n' +
-        '* Interested Product Category: ' + category + '\n' +
         '* Target Quantity / Destination: ' + quantity + '\n' +
         '* Project Description: ' + message + '\n' +
         '--------------------------------------------------\n\n' +
         'Please send current pricing tier, datasheets, and delivery lead time.\n\n' +
         'Best regards,\n' + name;
 
-      var mailtoUrl = 'mailto:sales@rootze.com?subject=' + subject + '&body=' + encodeURIComponent(body);
+    var mailtoUrl = 'mailto:sales@rootze.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
 
-      // WhatsApp direct link support
-      var waText = encodeURIComponent('Hello RootZe Team, I am ' + name + ' from ' + company + '. Inquiring about ' + category + ' (' + quantity + ').');
-      var waUrl = 'https://wa.me/8613800000000?text=' + waText;
+    var waMsg = isZh
+      ? '您好 RootZe 团队，我是来自 ' + company + ' 的 ' + name + '。希望咨询关于 ' + category + '（采购量：' + quantity + '）的分销合作。'
+      : 'Hello RootZe Team, I am ' + name + ' from ' + company + '. Inquiring about wholesale distribution for ' + category + ' (' + quantity + ').';
 
-      // Feedback to user
-      var alertMsg = (currentLang === 'zh')
-        ? '感谢您的询盘！点击【确定】将调起您的邮件客户端，自动发送询价至 sales@rootze.com。\n\n如需即时加急沟通，亦可通过页面右下角 WhatsApp 直连我们！'
-        : 'Thank you for your inquiry! Clicking [OK] will launch your mail client to send this draft to sales@rootze.com.\n\nFor instant communication, feel free to connect via WhatsApp as well.';
+    var waUrl = 'https://wa.me/8613800000000?text=' + encodeURIComponent(waMsg);
 
-      alert(alertMsg);
-      window.location.href = mailtoUrl;
-    });
-  });
+    return {
+      subject: subject,
+      body: body,
+      mailtoUrl: mailtoUrl,
+      waUrl: waUrl
+    };
+  }
 
-  // Export specs for test environment inspection
+  // Export specs and helpers for test environment inspection
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { productSpecs: productSpecs };
+    module.exports = {
+      productSpecs: productSpecs,
+      buildInquiryPayload: buildInquiryPayload
+    };
   }
 })(typeof jQuery !== 'undefined' ? jQuery : function() { return { on: function(){}, val: function(){ return ''; }, ready: function(fn){ fn(); } }; });

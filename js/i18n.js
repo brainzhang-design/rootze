@@ -25,6 +25,12 @@
       "hero.cta_battery": "Explore Battery Solutions",
       "hero.cta_contact": "Request a Quote",
 
+      "subheading.battery": "Core Solutions",
+      "subheading.ev": "Vehicle Channels",
+      "subheading.adv": "Why RootZe",
+      "subheading.track": "Global Presence",
+      "subheading.contact": "Connect With Us",
+
       "battery.title": "Core Power Battery & Energy Storage Solutions",
       "battery.subtitle": "Industrial-grade power battery cells, battery packs, and scalable energy storage cabinets engineered for extreme safety, high energy density, and extended cycle life.",
       "battery.cell_title": "Prismatic LFP & NMC Traction Cells",
@@ -91,6 +97,17 @@
       "contact.form_message": "Tell us about your project requirements...",
       "contact.send": "Submit B2B Inquiry",
       "contact.whatsapp_cta": "Chat with Us on WhatsApp",
+      "contact.whatsapp_sub": "Direct line for instant wholesale quotes and stock availability",
+      "contact.whatsapp_btn": "Start Instant Chat",
+      "contact.ph_name": "John Doe",
+      "contact.ph_company": "Global Energy Corp",
+      "contact.ph_email": "john@company.com / +1 234 567 890",
+      "contact.ph_quantity": "e.g. 500 kWh or 20 EV units to Germany",
+      "contact.ph_message": "Please describe target models, delivery dates, or custom specs...",
+      "contact.modal_btn_mail": "Open Email Client",
+      "contact.modal_btn_wa": "Send via WhatsApp",
+      "contact.modal_btn_copy": "Copy Inquiry Text",
+      "contact.modal_copied": "Copied to clipboard!",
       "contact.direct_info_title": "Contact Information",
       "contact.email_label": "Official Business Email",
       "contact.email_val": "sales@rootze.com",
@@ -128,6 +145,12 @@
       "hero.feature3": "全球海空运物流保畅交付",
       "hero.cta_battery": "探索电池方案",
       "hero.cta_contact": "商务洽谈",
+
+      "subheading.battery": "核心业务方案",
+      "subheading.ev": "整车分销通道",
+      "subheading.adv": "为什么选择 RootZe",
+      "subheading.track": "全球分销足迹",
+      "subheading.contact": "联系我们",
 
       "battery.title": "核心动力电池与储能系统方案",
       "battery.subtitle": "工业级动力电芯、定制电池 PACK 与模块化储能系统，具备高安全性、高能量密度与超长循环寿命。",
@@ -195,6 +218,17 @@
       "contact.form_message": "请简述您的项目背景或规格要求...",
       "contact.send": "提交 B2B 询价",
       "contact.whatsapp_cta": "WhatsApp 一键直连对话",
+      "contact.whatsapp_sub": "一手批发报价与现货库存即时查询专线",
+      "contact.whatsapp_btn": "发起 WhatsApp 对话",
+      "contact.ph_name": "例如：张经理",
+      "contact.ph_company": "例如：某某新能源科技有限公司",
+      "contact.ph_email": "业务邮箱或手机/微信/WhatsApp",
+      "contact.ph_quantity": "例如：首批 500 kWh 或 20 台整车出口",
+      "contact.ph_message": "请简要描述您的采购型号、交付周期或特殊定制规格...",
+      "contact.modal_btn_mail": "调起邮件客户端发送",
+      "contact.modal_btn_wa": "通过 WhatsApp 发送",
+      "contact.modal_btn_copy": "复制询盘文本",
+      "contact.modal_copied": "已成功复制到剪贴板！",
       "contact.direct_info_title": "直接联络方式",
       "contact.email_label": "官方商务邮箱",
       "contact.email_val": "sales@rootze.com",
@@ -241,7 +275,11 @@
       // localStorage may fail in private mode
     }
 
-    if (typeof document !== 'undefined' && document.querySelectorAll) {
+    if (typeof document !== 'undefined') {
+      if (document.documentElement) {
+        document.documentElement.setAttribute('lang', lang);
+      }
+      if (document.querySelectorAll) {
       // Update text nodes
       var elements = document.querySelectorAll('[data-i18n]');
       for (var i = 0; i < elements.length; i++) {
@@ -273,6 +311,7 @@
         } else {
           btn.classList.remove('active');
         }
+      }
       }
     }
   }

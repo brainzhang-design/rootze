@@ -152,6 +152,12 @@
   box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
 }
 
+/* Animation visibility guarantee: ensure content is always visible */
+.ftco-animate {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
 /* Glow button */
 .btn-glow {
   box-shadow: 0 4px 15px rgba(0, 180, 216, 0.4);
