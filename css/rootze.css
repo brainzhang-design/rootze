@@ -1,0 +1,161 @@
+/* RootZe New Energy Theme Styles */
+:root {
+  --rootze-primary: #00b4d8;
+  --rootze-primary-hover: #0096c7;
+  --rootze-accent: #00e5ff;
+  --rootze-green: #10b981;
+  --rootze-dark: #0b1325;
+  --rootze-card-dark: #121d33;
+}
+
+/* Brand overrides */
+.navbar-brand {
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.navbar-brand span {
+  color: var(--rootze-accent) !important;
+}
+
+/* Language switch capsule */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  padding: 2px;
+  margin-left: 15px;
+}
+.lang-btn {
+  background: transparent;
+  border: none;
+  color: #e2e8f0;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none !important;
+}
+.lang-btn:hover {
+  color: #ffffff;
+}
+.lang-btn.active {
+  background: var(--rootze-primary);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 180, 216, 0.4);
+}
+
+/* Hero Badge */
+.hero-tag {
+  display: inline-block;
+  background: rgba(0, 229, 255, 0.15);
+  border: 1px solid rgba(0, 229, 255, 0.4);
+  color: var(--rootze-accent);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+/* Spec Badges */
+.spec-badge {
+  display: inline-block;
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(0, 180, 216, 0.12);
+  color: var(--rootze-primary);
+  border: 1px solid rgba(0, 180, 216, 0.25);
+  font-weight: 600;
+  margin-right: 4px;
+  margin-bottom: 6px;
+}
+
+/* Product Card Improvements */
+.car-wrap {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #ffffff;
+}
+.car-wrap:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+.car-wrap .img {
+  height: 220px;
+  background-size: cover;
+  background-position: center center;
+}
+
+/* Advantage Icons */
+.services .icon {
+  background: rgba(0, 180, 216, 0.1) !important;
+  color: var(--rootze-primary) !important;
+  transition: all 0.3s ease;
+}
+.services:hover .icon {
+  background: var(--rootze-primary) !important;
+  color: #ffffff !important;
+}
+
+/* Spec modal styling */
+.tech-table {
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  font-size: 14px;
+}
+.tech-table th {
+  padding: 8px 12px;
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 600;
+  border-bottom: 2px solid #e2e8f0;
+  width: 40%;
+}
+.tech-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #1e293b;
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-float {
+  position: fixed;
+  width: 54px;
+  height: 54px;
+  bottom: 25px;
+  right: 25px;
+  background-color: #25d366;
+  color: #ffffff !important;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 28px;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+}
+
+/* Glow button */
+.btn-glow {
+  box-shadow: 0 4px 15px rgba(0, 180, 216, 0.4);
+}
+.btn-glow:hover {
+  box-shadow: 0 6px 20px rgba(0, 229, 255, 0.6);
+}
