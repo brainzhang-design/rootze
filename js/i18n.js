@@ -127,7 +127,7 @@
       "footer.about_text": "RootZe is a premier global distributor of new energy power batteries, energy storage systems, and electric vehicles, committed to accelerating the clean mobility transition.",
       "footer.quick_links": "Quick Links",
       "footer.products_title": "Product Categories",
-      "footer.copyright": "© 2026 RootZe New Energy. All rights reserved. Deployed on GitHub Pages."
+      "footer.copyright": "© 2026 RootZe New Energy. All rights reserved."
     },
     zh: {
       "brand.name": "RootZe",
@@ -251,7 +251,7 @@
       "footer.about_text": "RootZe 是全球专业的新能源动力电池、储能系统与电动汽车综合分销商，致力于赋能全球绿色低碳转型。",
       "footer.quick_links": "快捷导航",
       "footer.products_title": "产品体系",
-      "footer.copyright": "© 2026 RootZe New Energy. 版权所有。托管于 GitHub Pages。"
+      "footer.copyright": "© 2026 RootZe New Energy. 版权所有。"
     }
   };
 
